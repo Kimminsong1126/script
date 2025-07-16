@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div align="center">
+            <button onclick="btnHandler()">show data</button>
+        </div>
+        <hr/>
+        <div align="left" id="show">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>uid</th>
+                        <th>body</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        const btnHandler = () => {
+            axios.get('https://jsonplaceholder.typicode.com/posts')
+                .then(function(response){
+                    console.log("response >>> ");
+                    console.log(response);
+                    console.log("response data >>> ");
+                    console.log(response.data);
+
+                    let ary = response.data;
+                    txt = '';
+                    ary.forEach(function(data, idx){
+                        txt += '<tr>';
+                        txt += `<td>${data.userId}</td>`;
+                        txt += `<td>${data.body}</td>`;
+                        txt += '</tr>';
+                    });
+                    //window.alert(txt);
+                    document.querySelector("#tbody").innerHTML = txt;
+                })
+                .catch(function(err){
+                    console.log(`response error ${err}`);
+                })
+        }
+    </script>
+</html>
